@@ -6,9 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,10 +16,15 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final PWMSparkMax m_leftDrive = new PWMSparkMax(0);
-  private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
-  private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
-  private final XboxController m_controller = new XboxController(0);
+
+
+  private Drivetrain Drive;
+
+  private Gamepad xGamepad;
+
+  
+  
+
   private final Timer m_timer = new Timer();
 
   /**
@@ -29,10 +33,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    m_rightDrive.setInverted(true);
+
+    Drive = Drivetrain.getInstance();
+    xGamepad = Gamepad.getInstance();
+
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -48,9 +52,9 @@ public class Robot extends TimedRobot {
     // Drive for 2 seconds
     if (m_timer.get() < 2.0) {
       // Drive forwards half speed, make sure to turn input squaring off
-      m_robotDrive.arcadeDrive(0.5, 0.0, false);
+      Drive.m_robotDrive.arcadeDrive(0.5, 0.0, false);
     } else {
-      m_robotDrive.stopMotor(); // stop robot
+      Drive.m_robotDrive.stopMotor(); // stop robot
     }
   }
 
@@ -61,7 +65,16 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
-    m_robotDrive.arcadeDrive(-m_controller.getLeftY(), -m_controller.getRightX());
+
+    double spd = xGamepad.getFwd() - xGamepad.getRev();
+
+    double rot = -xGamepad.getSteer();
+
+    System.out.println(rot);
+    
+    System.out.println(Constants.throttleMult);
+
+    Drive.arcadeDrv(spd, rot);
   }
 
   /** This function is called once each time the robot enters test mode. */
@@ -70,5 +83,6 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }
