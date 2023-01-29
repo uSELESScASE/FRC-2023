@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
+import frc.robot.subsystems.mGyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +22,8 @@ public class Robot extends TimedRobot {
   private Drivetrain Drive;
 
   private Gamepad xGamepad;
+
+  private mGyro mGyro;
 
   
   
@@ -36,6 +39,7 @@ public class Robot extends TimedRobot {
 
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
+    mGyro = frc.robot.subsystems.mGyro.getInstance();
 
   }
 
@@ -44,18 +48,13 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
+    mGyro.m_Gyro.reset();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // Drive for 2 seconds
-    if (m_timer.get() < 2.0) {
-      // Drive forwards half speed, make sure to turn input squaring off
-      Drive.m_robotDrive.arcadeDrive(0.5, 0.0, false);
-    } else {
-      Drive.m_robotDrive.stopMotor(); // stop robot
-    }
+    
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -65,6 +64,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+
+    xGamepad.getSensRotPressed();
 
     double spd = xGamepad.getFwd() - xGamepad.getRev();
 
