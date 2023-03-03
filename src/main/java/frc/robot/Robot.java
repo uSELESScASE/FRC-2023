@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.devices.ArduinoGyro;
+import frc.robot.subsystems.Broomstick;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
 import frc.robot.subsystems.mGyro;
@@ -23,7 +25,10 @@ public class Robot extends TimedRobot {
 
   private Gamepad xGamepad;
 
-  private mGyro mGyro;
+  private mGyro m_Gyro;
+
+  private Broomstick m_Arm;
+
 
   
   
@@ -39,7 +44,8 @@ public class Robot extends TimedRobot {
 
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
-    mGyro = frc.robot.subsystems.mGyro.getInstance();
+    m_Gyro = mGyro.getInstance();
+    m_Arm = Broomstick.getInstance();
 
   }
 
@@ -48,7 +54,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
-    mGyro.m_Gyro.reset();
   }
 
   /** This function is called periodically during autonomous. */
@@ -67,15 +72,25 @@ public class Robot extends TimedRobot {
 
     xGamepad.getSensRotPressed();
 
+    xGamepad.getArmSpdPressed();
+
     double spd = xGamepad.getFwd() - xGamepad.getRev();
 
     double rot = -xGamepad.getSteer();
-
-    System.out.println(rot);
     
     System.out.println(Constants.throttleMult);
+    
+    System.out.println(Constants.armThrottleMult);
 
     Drive.arcadeDrv(spd, rot);
+
+    m_Gyro.getReadout();
+
+    if(xGamepad.getArmCalib()){
+      m_Arm.zero_out();
+    }
+
+    m_Arm.moveAngle((int) (xGamepad.getDPadFwd() - xGamepad.getDPadRev()));
   }
 
   /** This function is called once each time the robot enters test mode. */

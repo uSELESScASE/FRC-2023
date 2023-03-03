@@ -39,9 +39,30 @@ public class Gamepad {
 
     }
 
+    public double getDPadFwd(){
+
+        return m_controller;
+
+    }
+
+    public double getDPadRev(){
+        
+        return m_controller;
+    }
+
+    public boolean getArmCalib(){
+        return m_controller.getAButton();
+
+    }
+
     public double getSensRotPressed(){
         Constants.throttleMult = m_controller.getRawAxis(3);
         return m_controller.getRawAxis(3);
+    }
+
+    public double getArmSpdPressed(){
+        Constants.armThrottleMult = m_controller.getRawAxis(5);
+        return m_controller.getRawAxis(5);
     }
     
 }
