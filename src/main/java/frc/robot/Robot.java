@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.devices.ArduinoGyro;
 import frc.robot.subsystems.Broomstick;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
