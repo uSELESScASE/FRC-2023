@@ -7,21 +7,11 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.Constants;
 
 public class Broomstick {
-    private MotorController NEOSpark;
-    private int MotorPos;
-    private DigitalInput armCalibSw;
+    private MotorController NEOSpark = new PWMSparkMax(Constants.Broom_Port);
+    private int MotorPos = Constants.MotorPost;
+    private DigitalInput armCalibSw = new DigitalInput(Constants.Switch_Chan);
 
-    private static Broomstick m_Instance = new Broomstick();
-
-    public static Broomstick getInstance(){
-        return m_Instance;
-    }
-
-    Broomstick(){
-        NEOSpark = new PWMSparkMax(Constants.Broom_Port);
-        MotorPos = Constants.MotorPost;
-        armCalibSw = new DigitalInput(Constants.Switch_Chan);
-    }
+    public static Broomstick m_Instance = new Broomstick();
 
     public void moveAngle(int spd){
         if (MotorPos < 180){
