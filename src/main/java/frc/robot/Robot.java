@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 
     xGamepad.getArmSpdPressed();
 
-    double spd = xGamepad.getFwd() - xGamepad.getRev();
+    double spd = xGamepad.robotFwd - xGamepad.robotRev;
 
     double rot = -xGamepad.getSteer();
     
@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     Drive.arcadeDrv(spd, rot);
 
     m_Gyro.getReadout();
-
+    
     if(xGamepad.getArmCalib()){
       m_Arm.zero_out();
     }
