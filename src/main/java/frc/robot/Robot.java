@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
-import frc.robot.subsystems.mGyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,17 +16,8 @@ import frc.robot.subsystems.mGyro;
  * directory.
  */
 public class Robot extends TimedRobot {
-
-
   private Drivetrain Drive;
-
   private Gamepad xGamepad;
-
-  private mGyro mGyro;
-
-  
-  
-
   private final Timer m_timer = new Timer();
 
   /**
@@ -36,11 +26,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
-    mGyro = frc.robot.subsystems.mGyro.getInstance();
-
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -48,7 +35,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
-    mGyro.m_Gyro.reset();
   }
 
   /** This function is called periodically during autonomous. */
@@ -67,17 +53,14 @@ public class Robot extends TimedRobot {
 
     xGamepad.getSensRotPressed();
 
-    double spd = xGamepad.getFwd() - xGamepad.getRev();
-
+    double spd = xGamepad.getFwd() * (xGamepad.getRta() + 1);
     double rot = -xGamepad.getSteer();
-
-    System.out.println(rot);
     
-    System.out.println(Constants.throttleMult);
+    System.out.println(spd);
+    System.out.println(rot);
 
     Drive.arcadeDrv(spd, rot);
   }
-
   /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {}

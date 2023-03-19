@@ -12,6 +12,8 @@ public class Constants {
 
     public static double throttleMult = 0;
 
+    public static double armThrottleMult = 0;
+
     public static final int XboxPort = 0;
 
     public static final int R_T_Port = 2;
@@ -23,10 +25,16 @@ public class Constants {
     public static final int L_B_Port = 1;
 
     public static final int gyroPort = 0;
+
+    public static final int Broom_Port = 5;
+
+    public static final int Switch_Chan = 1;
     
     public static int gyroCalib = 0;
 
     public static int gyroReset = 0;
+
+    public static int MotorPost = 0;
 
     
 }
