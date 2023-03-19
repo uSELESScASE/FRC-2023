@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
 
     xGamepad.getSensRotPressed();
 
-    double spd = xGamepad.getFwd() * (xGamepad.getRta() + 1);
+    double spd = xGamepad.getFwd() * xGamepad.getRta();
     double rot = -xGamepad.getSteer();
     
     System.out.println(spd);
