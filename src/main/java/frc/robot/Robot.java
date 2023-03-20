@@ -53,9 +53,9 @@ public class Robot extends TimedRobot {
     xGamepad.getSensRotPressed();
 
     double spd = xGamepad.getFwd() * xGamepad.getRta();
-    double rot = -xGamepad.getSteer();
+    double rot = xGamepad.getSteer();
 
-    Drive.arcadeDrv(spd, rot);
+    Drive.arcadeDrv(-spd, -rot);
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
