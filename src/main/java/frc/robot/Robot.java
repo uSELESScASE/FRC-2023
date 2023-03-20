@@ -50,23 +50,22 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
-
     xGamepad.getSensRotPressed();
 
     double spd = xGamepad.getFwd() * xGamepad.getRta();
     double rot = -xGamepad.getSteer();
-    
-    System.out.println(spd);
-    System.out.println(rot);
 
     Drive.arcadeDrv(spd, rot);
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
-  public void testInit() {}
+  public void testInit() {
+
+  }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
+    
   }
 }
