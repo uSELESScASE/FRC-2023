@@ -5,17 +5,16 @@
 package frc.robot;
 
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
 
@@ -27,9 +26,18 @@ import frc.robot.subsystems.Gamepad;
  */
 public class Robot extends TimedRobot {
   private Thread m_visionThread;
+  
   private Drivetrain Drive;
   private Gamepad xGamepad;
+  
   private final Timer m_timer = new Timer();
+  
+  private static final int PH_CAN_ID = 1;
+  private static int forwardChannel = 0;
+  private static int reverseChannel = 1;
+  PneumaticHub m_pH = new PneumaticHub(PH_CAN_ID);
+  DoubleSolenoid m_doubleSolenoid = m_pH.makeDoubleSolenoid(forwardChannel, reverseChannel);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,18 +48,21 @@ public class Robot extends TimedRobot {
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
 
+    int width = 320;
+    int height = 240;
+
     m_visionThread =
         new Thread(
             () -> {
               // Get the UsbCamera from CameraServer
               UsbCamera camera = CameraServer.startAutomaticCapture();
               // Set the resolution
-              camera.setResolution(640, 480);
+              camera.setResolution(width, height);
 
               // Get a CvSink. This will capture Mats from the camera
               CvSink cvSink = CameraServer.getVideo();
               // Setup a CvSource. This will send images back to the Dashboard
-              CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
+              CvSource outputStream = CameraServer.putVideo("Robot Kamerasi", width, height);
 
               // Mats are very memory expensive. Lets reuse this Mat.
               Mat mat = new Mat();
@@ -68,15 +79,35 @@ public class Robot extends TimedRobot {
                   // skip the rest of the current iteration
                   continue;
                 }
-                // Put a rectangle on the image
-                Imgproc.rectangle(
-                    mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
                 // Give the output stream a new image to display
                 outputStream.putFrame(mat);
               }
             });
+
     m_visionThread.setDaemon(true);
     m_visionThread.start();
+
+    SmartDashboard.setDefaultBoolean("Set Off", false);
+    SmartDashboard.setDefaultBoolean("Set Forward", false);
+    SmartDashboard.setDefaultBoolean("Set Reverse", false);
+  }
+
+  @Override
+  public void robotPeriodic() {
+    switch (m_doubleSolenoid.get()) {
+      case kOff:
+        SmartDashboard.putString("Get Solenoid", "kOff");
+        break;
+      case kForward:
+        SmartDashboard.putString("Get Solenoid", "kForward");
+        break;
+      case kReverse:
+        SmartDashboard.putString("Get Solenoid", "kReverse");
+        break;
+      default:
+        SmartDashboard.putString("Get Solenoid", "N/A");
+        break;
+    }
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -105,6 +136,25 @@ public class Robot extends TimedRobot {
     double rot = xGamepad.getSteer();
 
     Drive.arcadeDrv(-spd, -rot);
+
+    // Set Off
+    if (SmartDashboard.getBoolean("Set Off", false)) {
+      SmartDashboard.putBoolean("Set Off", false);
+
+      m_doubleSolenoid.set(DoubleSolenoid.Value.kOff);
+    }
+    // Set Forward Button
+    if (SmartDashboard.getBoolean("Set Forward", false)) {
+      SmartDashboard.putBoolean("Set Forward", false);
+
+      m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+    // Set Reverse Button
+    if (SmartDashboard.getBoolean("Set Reverse", false)) {
+      SmartDashboard.putBoolean("Set Reverse", false);
+
+      m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
