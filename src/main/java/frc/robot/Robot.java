@@ -32,6 +32,8 @@ public class Robot extends TimedRobot {
   private Gamepad xGamepad;
 
   private Gripper mainGripper;
+  private Arm mainArm;
+
   private final Timer m_timer = new Timer();
   
   /**
@@ -43,6 +45,7 @@ public class Robot extends TimedRobot {
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
     mainGripper = Gripper.getInstance();
+    mainArm = Arm.getInstance();
 
     m_visionThread =
         new Thread(
@@ -120,7 +123,7 @@ public class Robot extends TimedRobot {
     Drive.arcadeDrv(-spd, -rot);
 
     mainGripper.engageGripper(xGamepad);
-    Arm.move(deg);
+    mainArm.move(deg);
   }
   /** This function is called once each time the robot enters test mode. */
   @Override

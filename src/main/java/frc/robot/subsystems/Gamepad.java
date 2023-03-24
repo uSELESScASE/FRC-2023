@@ -28,7 +28,7 @@ public class Gamepad {
     }
 
     public double getSensRotPressed(){
-        return m_controller.getRawAxis(3);
+        return m_controller.getRawAxis(5);
     }
 
     public boolean getYButtonPressed(){
