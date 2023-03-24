@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
@@ -20,9 +19,6 @@ public class Gripper {
 
     private DoubleSolenoid mainSolenoid;
     private Compressor mainCompressor;
-    private boolean pressureSwitch;
-    private double current;
-
     Gripper() {
         mainSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.forwardChannel, Constants.reverseChannel);
         mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
@@ -62,7 +58,7 @@ public class Gripper {
         if (mainCompressor.isEnabled() == false){
             mainCompressor.enableDigital();
         }
-        pressureSwitch = mainCompressor.getPressureSwitchValue();
-        current = mainCompressor.getCurrent();
+        mainCompressor.getPressureSwitchValue();
+        mainCompressor.getCurrent();
     }
 }

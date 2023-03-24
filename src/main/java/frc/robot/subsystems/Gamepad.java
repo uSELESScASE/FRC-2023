@@ -28,7 +28,6 @@ public class Gamepad {
     }
 
     public double getSensRotPressed(){
-        Constants.throttleMult = m_controller.getRawAxis(3);
         return m_controller.getRawAxis(3);
     }
 

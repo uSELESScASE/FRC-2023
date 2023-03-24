@@ -10,11 +10,11 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
 import frc.robot.subsystems.Gripper;
@@ -113,16 +113,14 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
-
-
-    xGamepad.getSensRotPressed();
-
     double spd = xGamepad.getFwd() * xGamepad.getRta();
     double rot = xGamepad.getSteer();
+    double deg = xGamepad.getSensRotPressed();
 
     Drive.arcadeDrv(-spd, -rot);
 
     mainGripper.engageGripper(xGamepad);
+    Arm.move(deg);
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
