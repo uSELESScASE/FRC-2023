@@ -16,10 +16,14 @@ public class Constants {
     public static final int L_T_Port = 0;
     public static final int L_B_Port = 1;
     public static final int gyroPort = 0;
-    public static final int Broom_Port = 5;
+    public static final int Arm_Port = 4;
     public static final int Switch_Chan = 1;
     
     public static int gyroCalib = 0;
     public static int gyroReset = 0;
     public static int MotorPost = 0;
+
+    public static final int PH_CAN_ID = 1;
+    public static final int forwardChannel = 0;
+    public static final int reverseChannel = 1;
 }

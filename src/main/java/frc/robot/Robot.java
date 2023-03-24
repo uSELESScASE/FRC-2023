@@ -11,12 +11,13 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gamepad;
+import frc.robot.subsystems.Gripper;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,16 +30,10 @@ public class Robot extends TimedRobot {
   
   private Drivetrain Drive;
   private Gamepad xGamepad;
-  
+
+  private Gripper mainGripper;
   private final Timer m_timer = new Timer();
   
-  private static final int PH_CAN_ID = 1;
-  private static int forwardChannel = 0;
-  private static int reverseChannel = 1;
-  PneumaticHub m_pH = new PneumaticHub(PH_CAN_ID);
-  DoubleSolenoid m_doubleSolenoid = m_pH.makeDoubleSolenoid(forwardChannel, reverseChannel);
-
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -47,13 +42,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     Drive = Drivetrain.getInstance();
     xGamepad = Gamepad.getInstance();
-
-    int width = 320;
-    int height = 240;
+    mainGripper = Gripper.getInstance();
 
     m_visionThread =
         new Thread(
             () -> {
+              int width = 400;
+              int height = 240;
+
               // Get the UsbCamera from CameraServer
               UsbCamera camera = CameraServer.startAutomaticCapture();
               // Set the resolution
@@ -94,20 +90,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    switch (m_doubleSolenoid.get()) {
-      case kOff:
-        SmartDashboard.putString("Get Solenoid", "kOff");
-        break;
-      case kForward:
-        SmartDashboard.putString("Get Solenoid", "kForward");
-        break;
-      case kReverse:
-        SmartDashboard.putString("Get Solenoid", "kReverse");
-        break;
-      default:
-        SmartDashboard.putString("Get Solenoid", "N/A");
-        break;
-    }
+  
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -130,6 +113,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+
+
     xGamepad.getSensRotPressed();
 
     double spd = xGamepad.getFwd() * xGamepad.getRta();
@@ -137,24 +122,7 @@ public class Robot extends TimedRobot {
 
     Drive.arcadeDrv(-spd, -rot);
 
-    // Set Off
-    if (SmartDashboard.getBoolean("Set Off", false)) {
-      SmartDashboard.putBoolean("Set Off", false);
-
-      m_doubleSolenoid.set(DoubleSolenoid.Value.kOff);
-    }
-    // Set Forward Button
-    if (SmartDashboard.getBoolean("Set Forward", false)) {
-      SmartDashboard.putBoolean("Set Forward", false);
-
-      m_doubleSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-    // Set Reverse Button
-    if (SmartDashboard.getBoolean("Set Reverse", false)) {
-      SmartDashboard.putBoolean("Set Reverse", false);
-
-      m_doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
-    }
+    mainGripper.engageGripper(xGamepad);
   }
   /** This function is called once each time the robot enters test mode. */
   @Override

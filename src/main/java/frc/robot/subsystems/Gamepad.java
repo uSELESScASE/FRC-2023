@@ -31,4 +31,16 @@ public class Gamepad {
         Constants.throttleMult = m_controller.getRawAxis(3);
         return m_controller.getRawAxis(3);
     }
+
+    public boolean getYButtonPressed(){
+        return m_controller.getYButtonPressed();
+    }
+
+    public boolean getAButtonPressed(){
+        return m_controller.getAButtonPressed();
+    }
+
+    public boolean getXButtonPressed(){
+        return m_controller.getXButtonPressed();
+    }
 }
