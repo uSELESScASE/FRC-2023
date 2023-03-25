@@ -18,18 +18,14 @@ public class Arm {
         VictorSP = new VictorSP(Constants.Arm_Port);
     }
 
-    public void move(double deg){
-        if (deg > 0.5){
-            deg = 0.5;
-            
+
+    public void move(double deg, double thr){
+
+        if (deg > 0.1){
+            deg *= thr;
             //VictorSP.set(deg);
-        }
-        else if (deg < -0.5){
-            deg = -0.5;
-            
-            //VictorSP.set(deg);
+            System.out.println(thr);
         }
 
-        System.out.println(deg);
     }
 }

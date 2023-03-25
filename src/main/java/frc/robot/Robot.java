@@ -12,12 +12,14 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.FlightStick;
 import frc.robot.subsystems.Gamepad;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Gyroscope;
+import frc.robot.subsystems.PAShuffle;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,13 +28,13 @@ import frc.robot.subsystems.Gripper;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private Thread m_visionThread;
-  
-  private Drivetrain Drive;
   private Gamepad xGamepad;
-
+  private Thread m_visionThread;
+  private Drivetrain Drive;
   private Gripper mainGripper;
   private Arm mainArm;
+  private Gyroscope gyro;
+  private FlightStick flightStick;
 
   private final Timer m_timer = new Timer();
   
@@ -46,6 +48,11 @@ public class Robot extends TimedRobot {
     xGamepad = Gamepad.getInstance();
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
+    gyro = Gyroscope.getInstance();
+    flightStick = FlightStick.getInstance();
+
+
+    gyro.wake_gyro();
 
     m_visionThread =
         new Thread(
@@ -86,14 +93,12 @@ public class Robot extends TimedRobot {
     m_visionThread.setDaemon(true);
     m_visionThread.start();
 
-    SmartDashboard.setDefaultBoolean("Set Off", false);
-    SmartDashboard.setDefaultBoolean("Set Forward", false);
-    SmartDashboard.setDefaultBoolean("Set Reverse", false);
+    PAShuffle.onStart();
   }
 
   @Override
   public void robotPeriodic() {
-  
+    PAShuffle.getRobotStatus();
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -116,14 +121,23 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
-    double spd = xGamepad.getFwd() * xGamepad.getRta();
+    double spd = xGamepad.getFwd();
     double rot = xGamepad.getSteer();
-    double deg = xGamepad.getSensRotPressed();
+
+    double deg = flightStick.flightStickYAxis();
+    double thr = flightStick.flightStickThrottleAxis();
+
+    PAShuffle.inTeleopPeriod();
+
+    xGamepad.getRta();
 
     Drive.arcadeDrv(-spd, -rot);
 
     mainGripper.engageGripper(xGamepad);
-    mainArm.move(deg);
+    
+    mainArm.move(deg,thr);
+
+    gyro.gyroRead();
   }
   /** This function is called once each time the robot enters test mode. */
   @Override

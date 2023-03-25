@@ -19,8 +19,8 @@ public class Gamepad {
         return m_controller.getRawAxis(0);
     }
 
-    public double getRta(){
-        return m_controller.getRightTriggerAxis();
+    public void getRta(){
+        Constants.throttleMult = m_controller.getRightTriggerAxis();
     }
 
     public double getSteer(){
