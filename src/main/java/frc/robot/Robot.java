@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     Drive = Drivetrain.getInstance();
-    xGamepad = Gamepad.getInstance();
+    xGamepad = Gamepad.getInstance(Constants.XboxPort);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     gyro = Gyroscope.getInstance();
@@ -123,15 +123,14 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     double spd = xGamepad.getFwd();
     double rot = xGamepad.getSteer();
+    double drvthr = xGamepad.getRta();
 
-    double deg = flightStick.flightStickYAxis();
-    double thr = flightStick.flightStickThrottleAxis();
+    double deg = xGamepad.getRightThumbY();
+    double thr = xGamepad.getLta();
 
     PAShuffle.inTeleopPeriod();
 
-    xGamepad.getRta();
-
-    Drive.arcadeDrv(-spd, -rot);
+    Drive.arcadeDrv(-spd, -rot, drvthr);
 
     mainGripper.engageGripper(xGamepad);
     

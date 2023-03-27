@@ -29,9 +29,9 @@ public class Drivetrain {
     m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
   }
 
-  public void arcadeDrv(double spd, double rot){
-    spd *= Constants.throttleMult;
-    rot *= Constants.throttleMult;
+  public void arcadeDrv(double spd, double rot, double drivethr){
+    spd *= drivethr;
+    rot *= drivethr;
 
     m_robotDrive.arcadeDrive(spd, rot, false);
   }

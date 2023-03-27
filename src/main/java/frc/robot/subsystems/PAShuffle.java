@@ -9,7 +9,7 @@ public class PAShuffle {
     private static Gamepad xGamepad;
     
     public static void onStart() {
-        xGamepad = Gamepad.getInstance();
+        xGamepad = Gamepad.getInstance(Constants.XboxPort);
 
         Shuffleboard.getTab("uSELESScASE Shuffleboard");
         Shuffleboard.startRecording();
@@ -34,7 +34,7 @@ public class PAShuffle {
     public static void inTeleopPeriod() {
         double spd = xGamepad.getFwd();
         double rot = xGamepad.getSteer();
-        double deg = xGamepad.getSensRotPressed();
+        double deg = xGamepad.getRightThumbY();
 
         SmartDashboard.putNumber("Get R-Y Axis", spd);
         SmartDashboard.putNumber("Get R-X Axis", rot);
