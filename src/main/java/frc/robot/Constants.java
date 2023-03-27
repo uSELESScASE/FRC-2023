@@ -25,6 +25,6 @@ public class Constants {
     public static int MotorPost = 0;
 
     public static final int PH_CAN_ID = 1;
-    public static final int forwardChannel = 0;
-    public static final int reverseChannel = 1;
+    public static final int forwardChannel = 6;
+    public static final int reverseChannel = 7;
 }
