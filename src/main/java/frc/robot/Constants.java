@@ -1,5 +1,11 @@
 package frc.robot;
 
+import java.util.Map;
+
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
+
 public class Constants {
 
     public static final double leftSlow = 0.24;
@@ -25,6 +31,23 @@ public class Constants {
     public static int MotorPost = 0;
 
     public static final int PH_CAN_ID = 1;
-    public static final int forwardChannel = 0;
-    public static final int reverseChannel = 1;
+    public static final int forwardChannel = 6;
+    public static final int reverseChannel = 7;
+
+    public static SimpleWidget leftYAxis = Shuffleboard.getTab("uSELESScASE General")
+    .add("Left Y Axis", 0.0)
+    .withWidget(BuiltInWidgets.kNumberBar)
+    .withProperties(Map.of("min",-1 , "max",1));
+    public static SimpleWidget leftXAxis = Shuffleboard.getTab("uSELESScASE General")
+    .add("Left X Axis", 0.0)
+    .withWidget(BuiltInWidgets.kNumberBar)
+    .withProperties(Map.of("min",-1 , "max",1));
+    public static SimpleWidget rightTAxis = Shuffleboard.getTab("uSELESScASE General")
+    .add("Right Trigger Axis", 0.0)
+    .withWidget(BuiltInWidgets.kNumberBar)
+    .withProperties(Map.of("min",0 , "max",1));
+    public static SimpleWidget rightYAxis = Shuffleboard.getTab("uSELESScASE General")
+    .add("Right Y Axis", 0.0)
+    .withWidget(BuiltInWidgets.kNumberBar)
+    .withProperties(Map.of("min",-1 , "max",1));
 }

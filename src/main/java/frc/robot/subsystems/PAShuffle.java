@@ -25,22 +25,10 @@ public class PAShuffle {
         Shuffleboard.getTab("uSELESScASE General");
         Shuffleboard.selectTab("uSELESScASE General");
 
-        Shuffleboard.getTab("uSELESScASE General")
-        .add("Left X Axis", 0.0)
-        .withWidget(BuiltInWidgets.kNumberBar)
-        .withProperties(Map.of("min",-1 , "max",1));
-        Shuffleboard.getTab("uSELESScASE General")
-        .add("Left Y Axis", 0.0)
-        .withWidget(BuiltInWidgets.kNumberBar)
-        .withProperties(Map.of("min",-1 , "max",1));
-        Shuffleboard.getTab("uSELESScASE General")
-        .add("Right Trigger Axis", 0.0)
-        .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("min",0 , "max",1));
-        Shuffleboard.getTab("uSELESScASE General")
-        .add("Right Y Axis", 0.0)
-        .withWidget(BuiltInWidgets.kNumberBar)
-        .withProperties(Map.of("min",-1 , "max",1));
+        Constants.leftXAxis.getEntry();
+        Constants.leftYAxis.getEntry();
+        Constants.rightTAxis.getEntry();
+        Constants.rightYAxis.getEntry();
 
         SmartDashboard.setDefaultBoolean("Set Off", false);
         SmartDashboard.setDefaultBoolean("Set Forward", false);
@@ -97,10 +85,11 @@ public class PAShuffle {
     public static void inTeleopPeriod() {
         double spd = xGamepad.getFwd();
         double rot = xGamepad.getSteer();
+        double drvthr = xGamepad.getRta();
         double deg = xGamepad.getRightThumbY();
 
         SmartDashboard.putNumber("Left X Axis", spd);
         SmartDashboard.putNumber("Left Y Axis", rot);
-        SmartDashboard.putNumber("Right Trigger Axis", spd);
+        SmartDashboard.putNumber("Right Trigger Axis", drvthr);
     }
 }

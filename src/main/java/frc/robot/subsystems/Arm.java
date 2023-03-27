@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP
-;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+
 import frc.robot.Constants;
 
 public class Arm {
@@ -13,23 +13,16 @@ public class Arm {
         return m_Instance;
     }
 
-    Arm(){
-        
+    Arm(){ 
         VictorSP = new VictorSP(Constants.Arm_Port);
     }
 
 
     public void move(double deg, double thr){
+        deg *= thr;
 
-        if (deg < 0.75){
-            deg *= thr;
-            VictorSP.set(deg);
-        }
-        else{
-            deg = 0.75;
-            deg *= thr;
-            VictorSP.set(deg);
-        }
+        VictorSP.set(deg);
 
+        System.out.println(deg);
     }
 }
