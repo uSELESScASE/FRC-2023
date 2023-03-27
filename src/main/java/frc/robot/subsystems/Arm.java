@@ -21,15 +21,8 @@ public class Arm {
 
     public void move(double deg, double thr){
 
-        if (deg < 0.75){
-            deg *= thr;
-            VictorSP.set(deg);
-        }
-        else{
-            deg = 0.75;
-            deg *= thr;
-            VictorSP.set(deg);
-        }
+        deg *= thr;
 
+        VictorSP.set(deg);
     }
 }
