@@ -2,6 +2,9 @@ package frc.robot;
 
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -45,26 +48,42 @@ public class Constants {
     public static int MotorPost = 0;
 
     public static final int PH_CAN_ID = 1;
-    public static final int forwardChannel = 0;
-    public static final int reverseChannel = 1;
+    public static final int forwardChannel = 6;
+    public static final int reverseChannel = 7;
 
-    public static SimpleWidget leftYAxis = Shuffleboard.getTab("uSELESScASE General")
+    public static DoubleSolenoid mainSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.forwardChannel, Constants.reverseChannel);
+    public static Compressor mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
+
+    public static SimpleWidget leftYAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Left Y Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
 
-    public static SimpleWidget leftXAxis = Shuffleboard.getTab("uSELESScASE General")
+    public static SimpleWidget leftXAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Left X Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
 
-    public static SimpleWidget rightTAxis = Shuffleboard.getTab("uSELESScASE General")
+    public static SimpleWidget rightTAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Trigger Axis", 0.0)
-    .withWidget(BuiltInWidgets.kNumberBar)
+    .withWidget(BuiltInWidgets.kDial)
     .withProperties(Map.of("min",0 , "max",1));
 
-    public static SimpleWidget rightYAxis = Shuffleboard.getTab("uSELESScASE General")
+    public static SimpleWidget rightYAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Y Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
+
+    public static SimpleWidget pneomaticSetOffWidget = Shuffleboard.getTab("uSELESScASE General")
+    .add("Set Off", false)
+    .withWidget(BuiltInWidgets.kBooleanBox);
+    public static SimpleWidget pneomaticSetForwardWidget = Shuffleboard.getTab("uSELESScASE General")
+    .add("Set Forward", false)
+    .withWidget(BuiltInWidgets.kBooleanBox);
+    public static SimpleWidget pneomaticSetReverseWidget = Shuffleboard.getTab("uSELESScASE General")
+    .add("Set Reverse", false)
+    .withWidget(BuiltInWidgets.kBooleanBox);
+    public static SimpleWidget pneomaticStatusWidget = Shuffleboard.getTab("uSELESScASE General")
+    .add("Pneomatic Status", "N/A")
+    .withWidget(BuiltInWidgets.kTextView);
 }

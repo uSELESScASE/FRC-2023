@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.FlightStick;
+// import frc.robot.subsystems.FlightStick;
 import frc.robot.subsystems.Gamepad;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private Gripper mainGripper;
   private Arm mainArm;
   private Gyroscope gyro;
-  private FlightStick flightStick;
+  // private FlightStick flightStick;
 
   private final Timer m_timer = new Timer();
   
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     gyro = Gyroscope.getInstance();
-    flightStick = FlightStick.getInstance();
+    // flightStick = FlightStick.getInstance();
 
 
     gyro.wake_gyro();
