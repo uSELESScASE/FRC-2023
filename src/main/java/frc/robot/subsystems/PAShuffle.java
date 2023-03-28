@@ -7,30 +7,27 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 public class PAShuffle {
     private static XboxGamepad xGamepad;
     private static Thread m_visionThread;
     
     public static void onStart() {
-        xGamepad = XboxGamepad.getInstance(Constants.JoystickPort);
+        xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
 
         Shuffleboard.getTab("uSELESScASE General");
         Shuffleboard.selectTab("uSELESScASE General");
 
-        Constants.leftXAxis.getEntry();
-        Constants.leftYAxis.getEntry();
-        Constants.rightTAxis.getEntry();
-        Constants.rightYAxis.getEntry();
+        Constants.leftXAxisWidget.getEntry();
+        Constants.leftYAxisWidget.getEntry();
+        Constants.rightTAxisWidget.getEntry();
+        Constants.rightYAxisWidget.getEntry();
 
-        SmartDashboard.setDefaultBoolean("Set Off", false);
-        SmartDashboard.setDefaultBoolean("Set Forward", false);
-        SmartDashboard.setDefaultBoolean("Set Reverse", false);
-        SmartDashboard.setPersistent("Drive Train");
+        Constants.pneomaticSetOffWidget.getEntry();
+        Constants.pneomaticSetForwardWidget.getEntry();
+        Constants.pneomaticSetReverseWidget.getEntry();
 
         m_visionThread =
         new Thread(
@@ -73,11 +70,20 @@ public class PAShuffle {
     }
 
     public static void getRobotStatus() {
-        if (Robot.isReal()) {
-            Shuffleboard.startRecording();   
-        } else {
-            Shuffleboard.stopRecording();
-        }
+      switch (Constants.mainSolenoid.get()) {
+        case kOff:
+          Constants.pneomaticStatusWidget.getEntry().setString("kOff");
+          break;
+        case kForward:
+          Constants.pneomaticStatusWidget.getEntry().setString("kForward");
+          break;
+        case kReverse:
+          Constants.pneomaticStatusWidget.getEntry().setString("kReverse");
+          break;
+        default:
+          Constants.pneomaticStatusWidget.getEntry().setString("N/A");
+          break;
+      }
     }
     
     public static void inTeleopPeriod() {
@@ -86,11 +92,9 @@ public class PAShuffle {
         double drvthr = xGamepad.getRta();
         double deg = xGamepad.getRightThumbY();
 
-        SmartDashboard.putNumber("Left X Axis", spd);
-        SmartDashboard.putNumber("Left Y Axis", rot);
-        SmartDashboard.putNumber("Right Trigger Axis", drvthr);
-        SmartDashboard.putNumber("Right Y Axis", deg);
-
-        SmartDashboard.putData("Drive Train",Constants.m_robotDrive);
+        Constants.leftXAxisWidget.getEntry().setDouble(spd);
+        Constants.leftYAxisWidget.getEntry().setDouble(rot);
+        Constants.rightTAxisWidget.getEntry().setDouble(drvthr);
+        Constants.rightYAxisWidget.getEntry().setDouble(deg);
     }
 }
