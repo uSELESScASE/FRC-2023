@@ -22,7 +22,7 @@ public class Gyroscope {
         REGISTER_GYRO = 0x29;
     }
 
-    private I2C accelerometer = new I2C(I2C.Port.kOnboard ,L3GD20H_ADDRESS);
+    private I2C accelerometer = new I2C(I2C.Port.kMXP ,L3GD20H_ADDRESS);
     private byte[] buffer = new byte[6];
 
 
