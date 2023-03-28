@@ -7,17 +7,15 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 public class PAShuffle {
-    private static Gamepad xGamepad;
+    private static XboxGamepad xGamepad;
     private static Thread m_visionThread;
     
     public static void onStart() {
-        xGamepad = Gamepad.getInstance(Constants.JoystickPort);
+        xGamepad = XboxGamepad.getInstance(Constants.JoystickPort);
 
         Shuffleboard.getTab("uSELESScASE General");
         Shuffleboard.selectTab("uSELESScASE General");
@@ -100,6 +98,6 @@ public class PAShuffle {
         Constants.rightYAxisWidget.getEntry().setDouble(deg);
 
         
-        
+
     }
 }

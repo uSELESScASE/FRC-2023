@@ -24,7 +24,7 @@ public class Gripper {
         mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
     }
 
-    public void engageGripper(Gamepad xbox){
+    public void engageGripper(XboxGamepad xbox){
 
         if (xbox.getAButtonPressed() == true){
             mainSolenoid.set(Value.kForward);
