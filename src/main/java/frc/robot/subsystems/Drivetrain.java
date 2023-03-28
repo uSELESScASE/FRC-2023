@@ -1,9 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+
 import frc.robot.Constants;
 
 public class Drivetrain {
@@ -17,16 +16,8 @@ public class Drivetrain {
     return mDrivetrain_Instance;
   }
   
-  public Drivetrain(){
-    MotorController m_R_Top = new PWMSparkMax(Constants.R_T_Port);
-    MotorController m_R_Bot= new PWMSparkMax(Constants.R_B_Port);
-    MotorController m_L_Top = new PWMSparkMax(Constants.L_T_Port);
-    MotorController m_L_Bot = new PWMSparkMax(Constants.L_B_Port);
-
-    MotorControllerGroup m_leftDrive = new MotorControllerGroup(m_L_Top, m_L_Bot);
-    MotorControllerGroup m_rightDrive = new MotorControllerGroup(m_R_Top, m_R_Bot);
-    
-    m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
+  public Drivetrain(){    
+    m_robotDrive = Constants.m_robotDrive;
   }
 
   public void arcadeDrv(double spd, double rot, double drivethr){

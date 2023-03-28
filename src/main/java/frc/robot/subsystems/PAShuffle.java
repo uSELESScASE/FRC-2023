@@ -1,14 +1,11 @@
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import org.opencv.core.Mat;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,6 +30,7 @@ public class PAShuffle {
         SmartDashboard.setDefaultBoolean("Set Off", false);
         SmartDashboard.setDefaultBoolean("Set Forward", false);
         SmartDashboard.setDefaultBoolean("Set Reverse", false);
+        SmartDashboard.setPersistent("Drive Train");
 
         m_visionThread =
         new Thread(
@@ -91,5 +89,8 @@ public class PAShuffle {
         SmartDashboard.putNumber("Left X Axis", spd);
         SmartDashboard.putNumber("Left Y Axis", rot);
         SmartDashboard.putNumber("Right Trigger Axis", drvthr);
+        SmartDashboard.putNumber("Right Y Axis", deg);
+
+        SmartDashboard.putData("Drive Train",Constants.m_robotDrive);
     }
 }

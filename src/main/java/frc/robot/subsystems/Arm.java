@@ -22,7 +22,5 @@ public class Arm {
         deg *= thr;
 
         VictorSP.set(deg);
-
-        System.out.println(deg);
     }
 }
