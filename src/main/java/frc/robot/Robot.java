@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlightStick;
-import frc.robot.subsystems.Gamepad;
+import frc.robot.subsystems.XboxGamepad;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.PAShuffle;
@@ -22,7 +22,7 @@ import frc.robot.subsystems.PAShuffle;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private Gamepad xGamepad;
+  private XboxGamepad xGamepad;
   private Drivetrain Drive;
   private Gripper mainGripper;
   private Arm mainArm;
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     Drive = Drivetrain.getInstance();
-    xGamepad = Gamepad.getInstance(Constants.XboxPort);
+    xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     gyro = Gyroscope.getInstance();
@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
+    
     double spd = xGamepad.getFwd();
     double rot = xGamepad.getSteer();
     double drvthr = xGamepad.getRta();
