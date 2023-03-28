@@ -13,11 +13,11 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class PAShuffle {
-    private static Gamepad xGamepad;
+    private static XboxGamepad xGamepad;
     private static Thread m_visionThread;
     
     public static void onStart() {
-        xGamepad = Gamepad.getInstance(Constants.JoystickPort);
+        xGamepad = XboxGamepad.getInstance(Constants.JoystickPort);
 
         Shuffleboard.getTab("uSELESScASE General");
         Shuffleboard.selectTab("uSELESScASE General");

@@ -3,17 +3,17 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 
-public class Gamepad {
+public class XboxGamepad {
     private static int nport;
     private XboxController m_controller;
-    private static Gamepad mInstance = new Gamepad();
+    private static XboxGamepad mInstance = new XboxGamepad();
 
-    public static Gamepad getInstance(int port){
+    public static XboxGamepad getInstance(int port){
         nport = port;
         return mInstance;
     }
 
-    public Gamepad(){
+    public XboxGamepad(){
         m_controller = new XboxController(nport);
     }
 
