@@ -23,6 +23,7 @@ import frc.robot.subsystems.PAShuffle;
  */
 public class Robot extends TimedRobot {
   private XboxGamepad xGamepad;
+  private XboxGamepad xGamepad2;
   private Drivetrain Drive;
   private Gripper mainGripper;
   private Arm mainArm;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     Drive = Drivetrain.getInstance();
     xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
+    xGamepad2 = XboxGamepad.getInstance(Constants.Xbox_Port_2);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     gyro = Gyroscope.getInstance();
@@ -80,8 +82,8 @@ public class Robot extends TimedRobot {
     double rot = xGamepad.getSteer();
     double drvthr = xGamepad.getRta();
 
-    double deg = xGamepad.getRightThumbY();
-    double thr = xGamepad.getLta();
+    double deg = xGamepad2.getRightThumbY();
+    double thr = xGamepad2.getLta();
 
     PAShuffle.inTeleopPeriod();
 
