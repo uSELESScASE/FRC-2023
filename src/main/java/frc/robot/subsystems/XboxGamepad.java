@@ -36,9 +36,15 @@ public class XboxGamepad {
     public boolean getYButtonPressed(){
         return m_controller.getYButtonPressed();
     }
+    public boolean getYButtonReleased(){
+        return m_controller.getYButtonReleased();
+    }
 
     public boolean getAButtonPressed(){
         return m_controller.getAButtonPressed();
+    }
+    public boolean getAButtonReleased(){
+        return m_controller.getAButtonReleased();
     }
 
     public boolean getXButtonPressed(){

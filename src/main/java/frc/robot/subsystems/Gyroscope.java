@@ -18,15 +18,15 @@ public class Gyroscope {
             arduino = new SerialPort(9600, SerialPort.Port.kUSB);
             System.out.println("check!");
             arduino.setTimeout(0.001);
-         }
-         catch (UncleanStatusException e){
-         System.out.println("ERROR: Unable to connect to Arduino");
+        }
+        catch (UncleanStatusException e){
+        System.out.println("ERROR: Unable to connect to Arduino");
        }
 
     }
 
     public void readGyro(){
-        arduino.readString();
+        arduino.read(3);
         System.out.println(arduino.readString());
     }
   

@@ -73,15 +73,31 @@ public class PAShuffle {
       switch (Constants.mainSolenoid.get()) {
         case kOff:
           Constants.pneomaticStatusWidget.getEntry().setString("kOff");
+
+          Constants.pneomaticSetOffWidget.getEntry().setBoolean(true);
+          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
           break;
         case kForward:
           Constants.pneomaticStatusWidget.getEntry().setString("kForward");
+          
+          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(true);
+          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
           break;
         case kReverse:
           Constants.pneomaticStatusWidget.getEntry().setString("kReverse");
+
+          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(true);
           break;
         default:
           Constants.pneomaticStatusWidget.getEntry().setString("N/A");
+
+          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
+          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
           break;
       }
     }
