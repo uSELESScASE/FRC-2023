@@ -45,8 +45,9 @@ public class Robot extends TimedRobot {
     flightStick = FlightStick.getInstance();
 
 
-    gyro.wake_gyro();
+
     PAShuffle.onStart();
+    gyro.setUpGyro();
   }
 
   @Override
@@ -90,7 +91,9 @@ public class Robot extends TimedRobot {
     
     mainArm.move(deg,thr);
 
-    gyro.gyroRead();
+    gyro.readGyro();
+
+
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
