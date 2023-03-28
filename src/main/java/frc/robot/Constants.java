@@ -2,6 +2,10 @@ package frc.robot;
 
 import java.util.Map;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -25,6 +29,16 @@ public class Constants {
     public static final int gyroPort = 0;
     public static final int Arm_Port = 4;
     public static final int Switch_Chan = 1;
+
+    public static MotorController m_R_Top = new PWMSparkMax(Constants.R_T_Port);
+    public static MotorController m_R_Bot= new PWMSparkMax(Constants.R_B_Port);
+    public static MotorController m_L_Top = new PWMSparkMax(Constants.L_T_Port);
+    public static MotorController m_L_Bot = new PWMSparkMax(Constants.L_B_Port);
+
+    public static MotorControllerGroup m_leftDrive = new MotorControllerGroup(m_L_Top, m_L_Bot);
+    public static MotorControllerGroup m_rightDrive = new MotorControllerGroup(m_R_Top, m_R_Bot);
+
+    public static DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDrive, m_rightDrive);
     
     public static int gyroCalib = 0;
     public static int gyroReset = 0;
@@ -38,14 +52,17 @@ public class Constants {
     .add("Left Y Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
+
     public static SimpleWidget leftXAxis = Shuffleboard.getTab("uSELESScASE General")
     .add("Left X Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
+
     public static SimpleWidget rightTAxis = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Trigger Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",0 , "max",1));
+
     public static SimpleWidget rightYAxis = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Y Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberBar)
