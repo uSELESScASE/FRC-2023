@@ -24,6 +24,7 @@ public class Constants {
     public static double armThrottleMult = 0;
 
     public static final int XboxPort = 0;
+    public static final int Xbox_Port_2 = 1;
     public static final int JoystickPort = 1;
     public static final int R_T_Port = 2;
     public static final int R_B_Port = 3;
