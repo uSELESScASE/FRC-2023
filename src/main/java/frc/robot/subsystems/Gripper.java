@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.Constants;
@@ -9,18 +8,16 @@ import frc.robot.Constants;
 public class Gripper {
 
     private static Gripper m_Instance = new Gripper();
+    private DoubleSolenoid mainSolenoid;
+    private Compressor mainCompressor;
 
     public static Gripper getInstance(){
         return m_Instance;
     }
 
-
-
-    private DoubleSolenoid mainSolenoid;
-    private Compressor mainCompressor;
     Gripper() {
-        mainSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.forwardChannel, Constants.reverseChannel);
-        mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
+        mainSolenoid = Constants.mainSolenoid;
+        mainCompressor = Constants.mainCompressor;
     }
 
     public void engageGripper(XboxGamepad xbox){

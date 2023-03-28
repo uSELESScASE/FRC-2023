@@ -66,7 +66,7 @@ public class Constants {
 
     public static SimpleWidget rightTAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Trigger Axis", 0.0)
-    .withWidget(BuiltInWidgets.kDial)
+    .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min",0 , "max",1));
 
     public static SimpleWidget rightYAxisWidget = Shuffleboard.getTab("uSELESScASE General")

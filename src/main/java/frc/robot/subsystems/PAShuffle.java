@@ -15,7 +15,7 @@ public class PAShuffle {
     private static Thread m_visionThread;
     
     public static void onStart() {
-        xGamepad = XboxGamepad.getInstance(Constants.JoystickPort);
+        xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
 
         Shuffleboard.getTab("uSELESScASE General");
         Shuffleboard.selectTab("uSELESScASE General");
@@ -96,8 +96,5 @@ public class PAShuffle {
         Constants.leftYAxisWidget.getEntry().setDouble(rot);
         Constants.rightTAxisWidget.getEntry().setDouble(drvthr);
         Constants.rightYAxisWidget.getEntry().setDouble(deg);
-
-        
-
     }
 }

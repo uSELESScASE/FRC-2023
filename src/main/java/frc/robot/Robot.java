@@ -43,8 +43,6 @@ public class Robot extends TimedRobot {
     gyro = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
-
-
     PAShuffle.onStart();
     gyro.setUpGyro();
   }
@@ -85,14 +83,9 @@ public class Robot extends TimedRobot {
     PAShuffle.inTeleopPeriod();
 
     Drive.arcadeDrv(-spd, -rot, drvthr);
-
     mainGripper.engageGripper(xGamepad);
-    
     mainArm.move(deg,thr);
-
     gyro.readGyro();
-
-
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
