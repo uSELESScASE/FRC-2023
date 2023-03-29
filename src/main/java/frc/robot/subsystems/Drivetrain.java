@@ -36,6 +36,6 @@ public class Drivetrain {
   }
 
   public void simpleTankDrv(double spd){
-    m_robotDrive.tankDrive(spd, spd);
+    m_robotDrive.tankDrive(spd,-spd);
   }
 }

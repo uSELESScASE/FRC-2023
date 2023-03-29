@@ -59,13 +59,16 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
+
+    System.out.println("Starting Autonomous...");
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    if (m_timer.get() < 3){
-      Drive.simpleTankDrv(0.2);
+    
+    while (m_timer.get() < 3){
+      Drive.simpleTankDrv(-0.55);
     }
     acc.accStabilize();
     
