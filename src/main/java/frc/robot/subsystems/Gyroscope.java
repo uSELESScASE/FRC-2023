@@ -24,7 +24,14 @@ public class Gyroscope {
     public void accStabilize(){
         acc_Y = accelerometer.getY();
         force_Y = acc_Y * Constants.accelerometerThrottleMult;
+        double maxValue;
 
-        drive.simpleTankDrv(force_Y);
+        if (force_Y < 0.6) {
+         ;
+        } else {
+            maxValue = 0.6;
+        }
+        System.out.println(maxValue);
+        drive.simpleTankDrv(maxValue);
     }
 }
