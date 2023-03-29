@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
-
     public static final double leftSlow = 0.24;
     public static final double rightSlow = -0.24;
     public static final double rotateSpeed = 0.35;
@@ -57,7 +56,7 @@ public class Constants {
     public static DoubleSolenoid mainSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.forwardChannel, Constants.reverseChannel);
     public static Compressor mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
 
-    public ShuffleboardLayout gamepadLayout = Shuffleboard.getTab("uSELESScASE General")
+    public static ShuffleboardLayout gamepadLayout = Shuffleboard.getTab("uSELESScASE General")
     .getLayout("Elevator", BuiltInLayouts.kList)
     .withSize(12, 5)
     .withProperties(Map.of("Label position", "MINIMAL"));
