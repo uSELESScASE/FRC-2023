@@ -30,7 +30,7 @@ public class Gyroscope {
         acc_Y = accelerometer.getY();
         force_Y = -acc_Y * Constants.accelerometerThrottleMult;
 
-        drivetrain.simpleArcadeDrv(force_Y);
+        drivetrain.simpleTankDrv(force_Y);
 
 
 

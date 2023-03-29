@@ -35,7 +35,7 @@ public class Drivetrain {
     m_robotDrive.tankDrive(0, 0);
   }
 
-  public void simpleArcadeDrv(double spd){
-    m_robotDrive.arcadeDrive(spd,1,false);
+  public void simpleTankDrv(double spd){
+    m_robotDrive.tankDrive(spd, spd);
   }
 }
