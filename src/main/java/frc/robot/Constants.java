@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
@@ -54,6 +56,11 @@ public class Constants {
 
     public static DoubleSolenoid mainSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.forwardChannel, Constants.reverseChannel);
     public static Compressor mainCompressor = new Compressor(1, PneumaticsModuleType.REVPH);
+
+    public ShuffleboardLayout gamepadLayout = Shuffleboard.getTab("uSELESScASE General")
+    .getLayout("Elevator", BuiltInLayouts.kList)
+    .withSize(12, 5)
+    .withProperties(Map.of("Label position", "MINIMAL"));
 
     public static SimpleWidget leftYAxisWidget = Shuffleboard.getTab("uSELESScASE General")
     .add("Left Y Axis", 0.0)
