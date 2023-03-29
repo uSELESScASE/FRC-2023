@@ -22,11 +22,7 @@ public class XboxGamepad {
     }
 
     public double getRta(){
-        double drvthr = m_controller.getRightTriggerAxis();
-
-        Constants.throttleMult = drvthr;
-
-        return drvthr;
+        return m_controller.getRightTriggerAxis();
     }
 
     public double getSteer(){
@@ -58,7 +54,7 @@ public class XboxGamepad {
     public double getLta(){
         double armthr = m_controller.getLeftTriggerAxis();
 
-        Constants.armThrottleMult = armthr;
+        Constants.ARM_THROTTLE_MULTIPLY = armthr;
 
         return armthr;
     }

@@ -16,8 +16,8 @@ public class Gripper {
     }
 
     Gripper() {
-        mainSolenoid = Constants.mainSolenoid;
-        mainCompressor = Constants.mainCompressor;
+        mainSolenoid = Constants.MAIN_SOLENOID;
+        mainCompressor = Constants.MAIN_COMPRESSOR;
     }
 
     public void engageGripper(XboxGamepad xbox){

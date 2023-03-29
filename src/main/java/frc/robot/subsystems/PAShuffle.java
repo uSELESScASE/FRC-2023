@@ -8,57 +8,53 @@ public class PAShuffle {
     private static XboxGamepad xGamepad;
     
     public static void onStart() {
-      xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
+      xGamepad = XboxGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
 
       Shuffleboard.getTab("uSELESScASE General");
       Shuffleboard.selectTab("uSELESScASE General");
 
-      Constants.leftXAxisWidget.getEntry();
-      Constants.leftYAxisWidget.getEntry();
-      Constants.rightTAxisWidget.getEntry();
-      Constants.rightYAxisWidget.getEntry();
+      Constants.LEFT_X_AXIS_WIDGET.getEntry();
+      Constants.LEFT_Y_AXIS_WIDGET.getEntry();
+      Constants.RIGHT_TRIGGER_AXIS_WIDGET.getEntry();
+      Constants.RIGHT_Y_AXIS_WIDGET.getEntry();
 
-      Constants.pneomaticSetOffWidget.getEntry();
-      Constants.pneomaticSetForwardWidget.getEntry();
-      Constants.pneomaticSetReverseWidget.getEntry();
-
-      Constants.gamepadLayout.withPosition(0, 0);
+      Constants.PNEOMATIC_SETOFF_WIDGET.getEntry();
+      Constants.PNEOMATIC_SETFORWARD_WIDGET.getEntry();
+      Constants.PNEOMATIC_SETREVERSE_WIDGET.getEntry();
       
-      Constants.gamepadLayout.add("Left X Axis", 0);
-      Constants.gamepadLayout.add("Left Y Axis", 0);
-      Constants.gamepadLayout.add("Right Trigger Axis", 0);
-      Constants.gamepadLayout.add("Right Y Axis", 0);
+      Constants.VISION_THREAD.setDaemon(true);
+      Constants.VISION_THREAD.start();
     }
 
     public static void getRobotStatus() {
-      switch (Constants.mainSolenoid.get()) {
+      switch (Constants.MAIN_SOLENOID.get()) {
         case kOff:
-          Constants.pneomaticStatusWidget.getEntry().setString("kOff");
+          Constants.PNEOMATIC_STATUS_WIDGET.getEntry().setString("kOff");
 
-          Constants.pneomaticSetOffWidget.getEntry().setBoolean(true);
-          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETOFF_WIDGET.getEntry().setBoolean(true);
+          Constants.PNEOMATIC_SETFORWARD_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETREVERSE_WIDGET.getEntry().setBoolean(false);
           break;
         case kForward:
-          Constants.pneomaticStatusWidget.getEntry().setString("kForward");
+          Constants.PNEOMATIC_STATUS_WIDGET.getEntry().setString("kForward");
           
-          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(true);
-          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETOFF_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETFORWARD_WIDGET.getEntry().setBoolean(true);
+          Constants.PNEOMATIC_SETREVERSE_WIDGET.getEntry().setBoolean(false);
           break;
         case kReverse:
-          Constants.pneomaticStatusWidget.getEntry().setString("kReverse");
+          Constants.PNEOMATIC_STATUS_WIDGET.getEntry().setString("kReverse");
 
-          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(true);
+          Constants.PNEOMATIC_SETOFF_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETFORWARD_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETREVERSE_WIDGET.getEntry().setBoolean(true);
           break;
         default:
-          Constants.pneomaticStatusWidget.getEntry().setString("N/A");
+          Constants.PNEOMATIC_STATUS_WIDGET.getEntry().setString("N/A");
 
-          Constants.pneomaticSetOffWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetForwardWidget.getEntry().setBoolean(false);
-          Constants.pneomaticSetReverseWidget.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETOFF_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETFORWARD_WIDGET.getEntry().setBoolean(false);
+          Constants.PNEOMATIC_SETREVERSE_WIDGET.getEntry().setBoolean(false);
           break;
       }
     }
@@ -69,9 +65,9 @@ public class PAShuffle {
         double drvthr = xGamepad.getRta();
         double deg = xGamepad.getRightThumbY();
 
-        Constants.leftXAxisWidget.getEntry().setDouble(-spd);
-        Constants.leftYAxisWidget.getEntry().setDouble(-rot);
-        Constants.rightTAxisWidget.getEntry().setDouble(drvthr);
-        Constants.rightYAxisWidget.getEntry().setDouble(deg);
+        Constants.LEFT_X_AXIS_WIDGET.getEntry().setDouble(-spd);
+        Constants.LEFT_Y_AXIS_WIDGET.getEntry().setDouble(-rot);
+        Constants.RIGHT_TRIGGER_AXIS_WIDGET.getEntry().setDouble(drvthr);
+        Constants.RIGHT_Y_AXIS_WIDGET.getEntry().setDouble(deg);
     }
 }

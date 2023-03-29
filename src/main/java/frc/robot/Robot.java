@@ -21,12 +21,12 @@ import frc.robot.subsystems.XboxGamepad;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private XboxGamepad xGamepad;
-  private XboxGamepad xGamepad2;
-  private Drivetrain Drive;
+  private XboxGamepad chassisGamepad;
+  private XboxGamepad armGamepad;
+  private Drivetrain driveTrain;
   private Gripper mainGripper;
   private Arm mainArm;
-  private Gyroscope acc;
+  private Gyroscope acceleroMeter;
   // private FlightStick flightStick;
 
   private final Timer m_timer = new Timer();
@@ -37,12 +37,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Drive = Drivetrain.getInstance();
-    xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
-    xGamepad2 = XboxGamepad.getInstance(Constants.Xbox_Port_2);
+    driveTrain = Drivetrain.getInstance();
+    chassisGamepad = XboxGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
+    armGamepad = XboxGamepad.getInstance(Constants.ARM_XBOX_PORT);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
-    acc = Gyroscope.getInstance();
+    acceleroMeter = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
     PAShuffle.onStart();
@@ -68,9 +68,9 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     
     while (m_timer.get() < 3){
-      Drive.simpleTankDrv(-0.55);
+      driveTrain.simpleTankDrv(-0.55);
     }
-    acc.accStabilize();
+    acceleroMeter.accStabilize();
     
   }
 
@@ -82,17 +82,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    double spd = xGamepad.getFwd();
-    double rot = xGamepad.getSteer();
-    double drvthr = xGamepad.getRta();
+    double spd = chassisGamepad.getFwd();
+    double rot = chassisGamepad.getSteer();
+    double drvthr = chassisGamepad.getRta();
 
-    double deg = xGamepad2.getRightThumbY();
-    double thr = xGamepad2.getLta();
+    double deg = armGamepad.getRightThumbY();
+    double thr = armGamepad.getLta();
 
     PAShuffle.inTeleopPeriod();
 
-    Drive.arcadeDrv(-spd, -rot, drvthr);
-    mainGripper.engageGripper(xGamepad);
+    driveTrain.arcadeDrv(-spd, -rot, drvthr);
+    mainGripper.engageGripper(chassisGamepad);
     mainArm.move(deg,thr);
   }
 

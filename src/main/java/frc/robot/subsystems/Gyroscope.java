@@ -23,7 +23,7 @@ public class Gyroscope {
 
     public void accStabilize(){
         acc_Y = accelerometer.getY();
-        force_Y = acc_Y * Constants.accelerometerThrottleMult;
+        force_Y = acc_Y * Constants.ACCELEROMETER_THROTTLE_MULTIPLY;
         double maxValue;
 
         if (force_Y < 0.6) {

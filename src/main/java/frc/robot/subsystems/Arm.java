@@ -14,7 +14,7 @@ public class Arm {
     }
 
     Arm(){ 
-        VictorSP = new VictorSP(Constants.Arm_Port);
+        VictorSP = new VictorSP(Constants.ARM_PORT);
     }
 
 
