@@ -31,6 +31,7 @@ public class Gripper {
         }
         if (xbox.getXButtonPressed() == true){
             mainSolenoid.set(Value.kOff);
+            
         }
     }
 

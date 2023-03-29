@@ -1,10 +1,6 @@
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-
-import edu.wpi.first.hal.util.UncleanStatusException;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.Constants;
 
 public class Gyroscope {
