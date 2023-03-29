@@ -92,6 +92,6 @@ public class Constants {
     .add("Set Reverse", false)
     .withWidget(BuiltInWidgets.kBooleanBox);
     public static SimpleWidget pneomaticStatusWidget = Shuffleboard.getTab("uSELESScASE General")
-    .add("Pneomatic Status", "N/A")
+    .add("Pneumatic Status", "N/A")
     .withWidget(BuiltInWidgets.kTextView);
 }

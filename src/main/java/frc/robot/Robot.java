@@ -11,7 +11,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
-// import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.PAShuffle;
 import frc.robot.subsystems.XboxGamepad;
 
@@ -60,14 +59,14 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
-    while (!m_timer.hasElapsed(3)){
-      Drive.simpleTankDrv(0.1);
-    }
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    if (m_timer.get() < 3){
+      Drive.simpleTankDrv(0.2);
+    }
     acc.accStabilize();
     
   }
@@ -92,17 +91,13 @@ public class Robot extends TimedRobot {
     Drive.arcadeDrv(-spd, -rot, drvthr);
     mainGripper.engageGripper(xGamepad);
     mainArm.move(deg,thr);
-
   }
-  /** This function is called once each time the robot enters test mode. */
+
+    /** This function is called once each time the robot enters test mode. */
   @Override
-  public void testInit() {
-
-  }
-
-  /** This function is called periodically during test mode. */
+  public void testInit() {}
+  
+    /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    
-  }
+  public void testPeriodic() {}
 }
