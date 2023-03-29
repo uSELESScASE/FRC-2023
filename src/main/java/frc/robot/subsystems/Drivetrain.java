@@ -34,4 +34,8 @@ public class Drivetrain {
   public void driveHalt(){
     m_robotDrive.tankDrive(0, 0);
   }
+
+  public void simpleArcadeDrv(double spd){
+    m_robotDrive.arcadeDrive(spd,1,false);
+  }
 }

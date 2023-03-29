@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   private Drivetrain Drive;
   private Gripper mainGripper;
   private Arm mainArm;
-  private Gyroscope gyro;
+  private Gyroscope acc;
   // private FlightStick flightStick;
 
   private final Timer m_timer = new Timer();
@@ -43,11 +43,11 @@ public class Robot extends TimedRobot {
     xGamepad2 = XboxGamepad.getInstance(Constants.Xbox_Port_2);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
-    gyro = Gyroscope.getInstance();
+    acc = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
     PAShuffle.onStart();
-    gyro.setUpGyro();
+
   }
 
   @Override
@@ -60,11 +60,15 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
+    while (!m_timer.hasElapsed(2)){
+      Drive.simpleArcadeDrv(0.1);
+    }
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    acc.accStabilize();
     
   }
 
@@ -88,7 +92,7 @@ public class Robot extends TimedRobot {
     Drive.arcadeDrv(-spd, -rot, drvthr);
     mainGripper.engageGripper(xGamepad);
     mainArm.move(deg,thr);
-    gyro.readGyro();
+
   }
   /** This function is called once each time the robot enters test mode. */
   @Override
