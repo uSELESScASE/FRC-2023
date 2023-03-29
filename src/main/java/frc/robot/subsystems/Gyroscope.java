@@ -9,7 +9,7 @@ public class Gyroscope {
     private static double acc_Y;
     private static double force_Y;
     private static BuiltInAccelerometer accelerometer;
-    private static Drivetrain drivetrain;
+    private static Drivetrain drive;
 
     public static Gyroscope getInstance(){
         return mInstance;
@@ -17,18 +17,14 @@ public class Gyroscope {
 
     Gyroscope(){
         accelerometer = new BuiltInAccelerometer();
-        drivetrain = new Drivetrain();
+        drive = new Drivetrain();
     }
 
 
     public void accStabilize(){
-
         acc_Y = accelerometer.getY();
-        force_Y = -acc_Y * Constants.accelerometerThrottleMult;
+        force_Y = acc_Y * Constants.accelerometerThrottleMult;
 
-        drivetrain.simpleTankDrv(force_Y);
-
-
-
+        drive.simpleTankDrv(force_Y);
     }
 }
