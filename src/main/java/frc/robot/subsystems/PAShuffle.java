@@ -21,12 +21,6 @@ public class PAShuffle {
       Constants.pneomaticSetOffWidget.getEntry();
       Constants.pneomaticSetForwardWidget.getEntry();
       Constants.pneomaticSetReverseWidget.getEntry();
-
-      Constants.gamepadLayout.withPosition(0, 0);
-      Constants.gamepadLayout.add("Left X Axis", Constants.leftXAxisWidget);
-      Constants.gamepadLayout.add("Left Y Axis", Constants.leftYAxisWidget);
-      Constants.gamepadLayout.add("Right Trigger Axis", Constants.rightTAxisWidget);
-      Constants.gamepadLayout.add("Right Y Axis", Constants.rightYAxisWidget);
     }
 
     public static void getRobotStatus() {
