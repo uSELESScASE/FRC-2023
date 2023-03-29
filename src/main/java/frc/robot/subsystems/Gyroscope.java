@@ -27,7 +27,7 @@ public class Gyroscope {
         double maxValue;
 
         if (force_Y < 0.6) {
-         ;
+         maxValue = force_Y;
         } else {
             maxValue = 0.6;
         }
