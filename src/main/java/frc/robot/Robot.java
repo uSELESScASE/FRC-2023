@@ -60,8 +60,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_timer.reset();
     m_timer.start();
-    while (!m_timer.hasElapsed(2)){
-      Drive.simpleArcadeDrv(0.1);
+    while (!m_timer.hasElapsed(3)){
+      Drive.simpleTankDrv(0.1);
     }
   }
 
