@@ -11,8 +11,8 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
-import frc.robot.subsystems.PAShuffle;
 import frc.robot.subsystems.XboxGamepad;
+import frc.robot.subsystems.XboxGamepad2;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,7 +22,7 @@ import frc.robot.subsystems.XboxGamepad;
  */
 public class Robot extends TimedRobot {
   private XboxGamepad xGamepad;
-  private XboxGamepad xGamepad2;
+  private XboxGamepad2 xGamepad2;
   private Drivetrain Drive;
   private Gripper mainGripper;
   private Arm mainArm;
@@ -38,20 +38,18 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     Drive = Drivetrain.getInstance();
-    xGamepad = XboxGamepad.getInstance(Constants.XboxPort);
-    xGamepad2 = XboxGamepad.getInstance(Constants.Xbox_Port_2);
+    xGamepad = XboxGamepad.getInstance(2);
+    xGamepad2 = XboxGamepad2.getInstance(1);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     acc = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
-    PAShuffle.onStart();
 
   }
 
   @Override
   public void robotPeriodic() {
-    PAShuffle.getRobotStatus();
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -60,23 +58,24 @@ public class Robot extends TimedRobot {
     m_timer.reset();
     m_timer.start();
 
-    System.out.println("Starting Autonomous...");
+    System.out.println("Starting Autonomous Mode...");
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
     
-    while (m_timer.get() < 3){
+    while (m_timer.get() < 1.65){
       Drive.simpleTankDrv(-0.55);
     }
     acc.accStabilize();
-    
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    System.out.println("Starting Teleoperated Mode...");
+  }
 
   /** This function is called periodically during teleoperated mode. */
   @Override
@@ -89,17 +88,15 @@ public class Robot extends TimedRobot {
     double deg = xGamepad2.getRightThumbY();
     double thr = xGamepad2.getLta();
 
-    PAShuffle.inTeleopPeriod();
-
     Drive.arcadeDrv(-spd, -rot, drvthr);
-    mainGripper.engageGripper(xGamepad);
+    mainGripper.engageGripper(xGamepad2);
     mainArm.move(deg,thr);
   }
 
     /** This function is called once each time the robot enters test mode. */
   @Override
   public void testInit() {}
-  
+      
     /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
