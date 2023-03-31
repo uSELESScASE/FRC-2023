@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
     public static double ARM_THROTTLE_MULTIPLY = 0;
-    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.5;
+    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.35;
 
     public static final int CHASSIS_XBOX_PORT = 0;
     public static final int ARM_XBOX_PORT = 1;
@@ -33,16 +33,10 @@ public class Constants {
     public static final int GYRO_PORT = 0;
     public static final int ARM_PORT = 4;
 
-    public static final int XboxPort = 0;
-    public static final int Xbox_Port_2 = 1;
-    public static final int JoystickPort = 1;
-    public static final int R_T_Port = 2;
-    public static final int R_B_Port = 3;
-    public static final int L_T_Port = 0;
-    public static final int L_B_Port = 1;
-    public static final int gyroPort = 0;
-    public static final int Arm_Port = 4;
-    public static final int Switch_Chan = 1;
+    public static MotorController RIGHT_TOP_SPARK = new PWMSparkMax(Constants.RIGHT_TOP_PORT);
+    public static MotorController RIGHT_BOTTOM_SPARK= new PWMSparkMax(Constants.RIGHT_BOTTOM_PORT);
+    public static MotorController LEFT_TOP_SPARK = new PWMSparkMax(Constants.LEFT_TOP_PORT);
+    public static MotorController LEFT_BOTTOM_SPARK = new PWMSparkMax(Constants.LEFT_BOTTOM_PORT);
 
     public static MotorControllerGroup LEFT_DRIVE_GROUP = new MotorControllerGroup(LEFT_TOP_SPARK, LEFT_BOTTOM_SPARK);
     public static MotorControllerGroup RIGHT_DRIVE_GROUP = new MotorControllerGroup(RIGHT_TOP_SPARK, RIGHT_BOTTOM_SPARK);
