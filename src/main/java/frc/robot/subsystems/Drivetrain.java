@@ -17,7 +17,7 @@ public class Drivetrain {
   }
   
   public Drivetrain(){    
-    m_robotDrive = Constants.m_robotDrive;
+    m_robotDrive = Constants.ROBOT_DRIVE;
   }
 
   public void arcadeDrv(double spd, double rot, double drivethr){

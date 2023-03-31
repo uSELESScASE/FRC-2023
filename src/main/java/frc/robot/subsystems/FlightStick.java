@@ -15,7 +15,7 @@ public class FlightStick {
 
     FlightStick(){
 
-        flightStick = new Joystick(Constants.JoystickPort);
+        flightStick = new Joystick(Constants.JOYSTICK_PORT);
     }
 
     public double flightStickYAxis(){
@@ -31,10 +31,10 @@ public class FlightStick {
         }
 
        if (thr >= 0){
-         Constants.armThrottleMult = flightStick.getThrottle();
+         Constants.ARM_THROTTLE_MULTIPLY = flightStick.getThrottle();
        }
 
-       thr = Constants.armThrottleMult;
+       thr = Constants.ARM_THROTTLE_MULTIPLY;
 
        return thr;
     }

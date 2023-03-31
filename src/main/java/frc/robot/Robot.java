@@ -21,12 +21,12 @@ import frc.robot.subsystems.XboxGamepad2;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private XboxGamepad xGamepad;
-  private XboxGamepad2 xGamepad2;
-  private Drivetrain Drive;
+  private XboxGamepad chassisGamepad;
+  private XboxGamepad armGamepad;
+  private Drivetrain driveTrain;
   private Gripper mainGripper;
   private Arm mainArm;
-  private Gyroscope acc;
+  private Gyroscope acceleroMeter;
   // private FlightStick flightStick;
 
   private final Timer m_timer = new Timer();
@@ -37,12 +37,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Drive = Drivetrain.getInstance();
-    xGamepad = XboxGamepad.getInstance(2);
-    xGamepad2 = XboxGamepad2.getInstance(1);
+    driveTrain = Drivetrain.getInstance();
+    chassisGamepad = XboxGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
+    armGamepad = XboxGamepad.getInstance(Constants.ARM_XBOX_PORT);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
-    acc = Gyroscope.getInstance();
+    acceleroMeter = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
 
@@ -65,10 +65,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
-    while (m_timer.get() < 1.65){
+    while (m_timer.get() < 3){
       Drive.simpleTankDrv(-0.55);
     }
     acc.accStabilize();
+    
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -81,15 +82,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    double spd = xGamepad.getFwd();
-    double rot = xGamepad.getSteer();
-    double drvthr = xGamepad.getRta();
+    double spd = chassisGamepad.getFwd();
+    double rot = chassisGamepad.getSteer();
+    double drvthr = chassisGamepad.getRta();
 
     double deg = xGamepad2.getRightThumbY();
     double thr = xGamepad2.getLta();
 
+    PAShuffle.inTeleopPeriod();
+
     Drive.arcadeDrv(-spd, -rot, drvthr);
-    mainGripper.engageGripper(xGamepad2);
+    mainGripper.engageGripper(xGamepad);
     mainArm.move(deg,thr);
   }
 
