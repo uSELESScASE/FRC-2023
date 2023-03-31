@@ -20,7 +20,7 @@ public class Gripper {
         mainCompressor = Constants.MAIN_COMPRESSOR;
     }
 
-    public void engageGripper(XboxGamepad2 xbox){
+    public void engageGripper(FlightStick xbox){
 
         if (xbox.getAButtonPressed() == true){
             mainSolenoid.set(Value.kForward);

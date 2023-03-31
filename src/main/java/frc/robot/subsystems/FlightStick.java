@@ -18,25 +18,29 @@ public class FlightStick {
         flightStick = new Joystick(Constants.JOYSTICK_PORT);
     }
 
-    public double flightStickYAxis(){
+    public double secondStickYAxis(){
         return flightStick.getY();
     }
 
-    public double flightStickThrottleAxis(){
+    public double secondStickThrottleAxis(){
+        return flightStick.getRawAxis(6);
+    }
 
-        double thr = flightStick.getThrottle();
+    public boolean getAButtonPressed(){
+        return flightStick.getRawButton(0);
+    }
 
-        if (thr > 0.75){
-            thr = 0.75;
-        }
+    public boolean getXButtonPressed(){
+        return flightStick.getRawButton(0);
+    }
 
-       if (thr >= 0){
-         Constants.ARM_THROTTLE_MULTIPLY = flightStick.getThrottle();
-       }
+    public boolean getYButtonPressed(){
+        return flightStick.getRawButton(0);
+    }
 
-       thr = Constants.ARM_THROTTLE_MULTIPLY;
-
-       return thr;
+    public double getRightThumbY(){
+        return flightStick.getRawAxis(5);
+    
     }
 
     

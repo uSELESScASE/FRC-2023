@@ -6,13 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.ChassisGamepad;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.FlightStick;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
-import frc.robot.subsystems.XboxGamepad;
-import frc.robot.subsystems.XboxGamepad2;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,15 +20,16 @@ import frc.robot.subsystems.XboxGamepad2;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private XboxGamepad chassisGamepad;
-  private XboxGamepad armGamepad;
+  private ChassisGamepad chassisGamepad;
+  private FlightStick armGamepad;
   private Drivetrain driveTrain;
   private Gripper mainGripper;
   private Arm mainArm;
   private Gyroscope acceleroMeter;
+  double value;
   // private FlightStick flightStick;
-
-  private final Timer m_timer = new Timer();
+  private final Timer m_generalTimer = new Timer();
+  private static final Timer m_autoTimer = new Timer();
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -38,8 +38,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     driveTrain = Drivetrain.getInstance();
-    chassisGamepad = XboxGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
-    armGamepad = XboxGamepad.getInstance(Constants.ARM_XBOX_PORT);
+    chassisGamepad = ChassisGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
+    armGamepad = FlightStick.getInstance();
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     acceleroMeter = Gyroscope.getInstance();
@@ -55,8 +55,8 @@ public class Robot extends TimedRobot {
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-    m_timer.reset();
-    m_timer.start();
+    m_generalTimer.reset();
+    m_generalTimer.start();
 
     System.out.println("Starting Autonomous Mode...");
   }
@@ -65,11 +65,17 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     
-    while (m_timer.get() < 3){
-      Drive.simpleTankDrv(-0.55);
+    while (m_generalTimer.get() < 1.9){
+      m_autoTimer.start();
+      int mult = 4;
+
+      for (double index = 8*mult; index > 5*mult; index--) {
+        Drivetrain.simpleTankDrv((index/mult) / 10); 
+        m_autoTimer.delay(0.25);
+      }
+      m_autoTimer.stop();
     }
-    acc.accStabilize();
-    
+    acceleroMeter.accStabilize();
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -82,17 +88,15 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    double spd = chassisGamepad.getFwd();
-    double rot = chassisGamepad.getSteer();
-    double drvthr = chassisGamepad.getRta();
+    double spd = chassisGamepad.getForwardDrive();
+    double rot = chassisGamepad.getTurnDrive();
+    double drvthr = chassisGamepad.getRightTriggerAxis();
 
-    double deg = xGamepad2.getRightThumbY();
-    double thr = xGamepad2.getLta();
+    double deg = armGamepad.getRightThumbY();
+    double thr = armGamepad.secondStickThrottleAxis();
 
-    PAShuffle.inTeleopPeriod();
-
-    Drive.arcadeDrv(-spd, -rot, drvthr);
-    mainGripper.engageGripper(xGamepad);
+    driveTrain.arcadeDrv(-spd, -rot, drvthr);
+    mainGripper.engageGripper(armGamepad);
     mainArm.move(deg,thr);
   }
 

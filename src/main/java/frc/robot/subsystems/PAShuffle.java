@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Constants;
 
 public class PAShuffle {
-    private static XboxGamepad xGamepad;
-    
+    private static ChassisGamepad chassisGamepad;
+    private static FlightStick armGamepad;
+
     public static void onStart() {
-      xGamepad = XboxGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
+      chassisGamepad = ChassisGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
+      armGamepad = ArmGamepad.getInstance(Constants.ARM_XBOX_PORT);
 
       Shuffleboard.getTab("uSELESScASE General");
       Shuffleboard.selectTab("uSELESScASE General");
@@ -59,11 +61,12 @@ public class PAShuffle {
       }
     }
     
-    public static void inTeleopPeriod() {
-        double spd = xGamepad.getFwd();
-        double rot = xGamepad.getSteer();
-        double drvthr = xGamepad.getRta();
-        double deg = xGamepad.getRightThumbY();
+    public void inTeleopPeriod() {
+        double spd = chassisGamepad.getForwardDrive();
+        double rot = chassisGamepad.getTurnDrive();
+        double drvthr = chassisGamepad.getRightTriggerAxis();
+        
+        double deg = FlightStick.getRightThumbY();
 
         Constants.LEFT_X_AXIS_WIDGET.getEntry().setDouble(-spd);
         Constants.LEFT_Y_AXIS_WIDGET.getEntry().setDouble(-rot);
