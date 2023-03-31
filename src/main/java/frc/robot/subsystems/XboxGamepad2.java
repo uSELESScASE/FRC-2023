@@ -3,22 +3,19 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants;
 
-public class XboxGamepad {
+public class XboxGamepad2 {
     private static int nport;
     private XboxController m_controller;
-    private static XboxGamepad mInstance = new XboxGamepad();
+    private static XboxGamepad2 mInstance = new XboxGamepad2();
 
-    public static XboxGamepad getInstance(int port){
+    public static XboxGamepad2 getInstance(int port){
         nport = port;
+        System.out.println(port);
         return mInstance;
     }
 
-    public XboxGamepad(){
+    public XboxGamepad2(){
         m_controller = new XboxController(nport);
-    }
-
-    public double getFwd(){
-        return m_controller.getRawAxis(0);
     }
 
     public double getRta(){
@@ -29,9 +26,6 @@ public class XboxGamepad {
         return drvthr;
     }
 
-    public double getSteer(){
-        return m_controller.getRawAxis(1);
-    }
     public boolean getYButtonPressed(){
         return m_controller.getYButtonPressed();
     }
@@ -61,4 +55,4 @@ public class XboxGamepad {
 
         return armthr;
     }
-}
+}   

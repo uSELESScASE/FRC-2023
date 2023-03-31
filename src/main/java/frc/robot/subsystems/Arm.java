@@ -22,7 +22,7 @@ public class Arm {
 
         deg *= thr;
 
-        VictorSP.set(deg);
+        VictorSP.set(-deg);
 
     }
 }

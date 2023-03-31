@@ -23,11 +23,11 @@ public class Constants {
 
     public static double throttleMult = 0;
     public static double armThrottleMult = 0;
-    public static double accelerometerThrottleMult = 1.5;
+    public static double accelerometerThrottleMult = 1.35;
 
     public static final int XboxPort = 0;
     public static final int Xbox_Port_2 = 1;
-    public static final int JoystickPort = 1;
+    public static final int JoystickPort = 9;
     public static final int R_T_Port = 2;
     public static final int R_B_Port = 3;
     public static final int L_T_Port = 0;
