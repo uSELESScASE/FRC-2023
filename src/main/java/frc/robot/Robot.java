@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
   double value;
   // private FlightStick flightStick;
   private final Timer m_generalTimer = new Timer();
+  private final Timer m_autoTimer = new Timer();
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,15 +62,21 @@ public class Robot extends TimedRobot {
 
     m_generalTimer.reset();
     m_generalTimer.start();
+    m_autoTimer.reset();
     mainGripper.autonomousPnoForward();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    while (m_generalTimer.get() < 1.9){
-      Drivetrain.simpleTankDrv(0.77);
+    while (acceleroMeter.accStabilizeValue() < 0.3){
+      Drivetrain.simpleTankDrv(0.8);
+    } 
+    m_autoTimer.start();
+    while (m_autoTimer.get() < 1){
+      Drivetrain.simpleTankDrv(0.8);
     }
+    m_autoTimer.reset();
     acceleroMeter.accStabilize();
   }
 

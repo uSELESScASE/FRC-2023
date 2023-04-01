@@ -29,10 +29,10 @@ public class Gyroscope {
         drive.simpleTankDrv(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
     }
 
-    public void accStabilizeValue(){
+    public double accStabilizeValue(){
         acc_Y = accelerometer.getY();
-        double filteredxAccel = xAccFilter.calculate(acc_Y);
+        double filteredxAccel = xAccFilter.calculate(acc_Y) * Constants.ACCELEROMETER_THROTTLE_MULTIPLY;
 
-        System.out.println(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
+        return filteredxAccel;
     }
 }
