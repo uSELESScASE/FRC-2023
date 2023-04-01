@@ -21,10 +21,10 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
     public static double ARM_THROTTLE_MULTIPLY = 0;
-    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.35;
+    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.47;
 
     public static final int CHASSIS_XBOX_PORT = 0;
-    public static final int ARM_XBOX_PORT = 1;
+    public static final int ARM_XBOX_PORT = 2;
     public static final int JOYSTICK_PORT = 1;
     public static final int RIGHT_TOP_PORT = 2;
     public static final int RIGHT_BOTTOM_PORT = 3;
@@ -44,7 +44,7 @@ public class Constants {
     public static DifferentialDrive ROBOT_DRIVE = new DifferentialDrive(LEFT_DRIVE_GROUP, RIGHT_DRIVE_GROUP);
 
     public static final int PH_CAN_ID = 1;
-    public static final int PH_FORWARD_CHANNEL = 6;
+    public static final int PH_FORWARD_CHANNEL = 7;
     public static final int PH_REVERSE_CHANNEL = 7;
 
     public static DoubleSolenoid MAIN_SOLENOID = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PH_FORWARD_CHANNEL, Constants.PH_REVERSE_CHANNEL);
