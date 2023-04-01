@@ -6,12 +6,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.ChassisGamepad;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FlightStick;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
+import frc.robot.subsystems.PAShuffle;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,7 +31,6 @@ public class Robot extends TimedRobot {
   double value;
   // private FlightStick flightStick;
   private final Timer m_generalTimer = new Timer();
-  private static final Timer m_autoTimer = new Timer();
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -45,20 +46,23 @@ public class Robot extends TimedRobot {
     acceleroMeter = Gyroscope.getInstance();
     // flightStick = FlightStick.getInstance();
 
-
+    PAShuffle.onStart();
   }
 
   @Override
   public void robotPeriodic() {
+    PAShuffle.getRobotPeriodic();
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
   @Override
   public void autonomousInit() {
-    m_generalTimer.reset();
-    m_generalTimer.start();
 
     System.out.println("Starting Autonomous Mode...");
+
+    m_generalTimer.reset();
+    m_generalTimer.start();
+    mainGripper.autonomousPnoForward();
   }
 
   /** This function is called periodically during autonomous. */
@@ -67,7 +71,7 @@ public class Robot extends TimedRobot {
     while (m_generalTimer.get() < 1.9){
       Drivetrain.simpleTankDrv(0.77);
     }
-    acceleroMeter.accStabilize();
+    //acceleroMeter.accStabilize();
   }
 
   /** This function is called once each time the robot enters teleoperated mode. */
@@ -86,6 +90,8 @@ public class Robot extends TimedRobot {
 
     double deg = armGamepad.getRightThumbY();
     double thr = armGamepad.secondStickThrottleAxis();
+
+    PAShuffle.inTeleopPeriod();
 
     driveTrain.arcadeDrv(-spd, -rot, drvthr);
     mainGripper.engageGripper(armGamepad);

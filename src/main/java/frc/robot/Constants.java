@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
     public static double ARM_THROTTLE_MULTIPLY = 0;
-    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.47;
+    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.375;
 
     public static final int CHASSIS_XBOX_PORT = 0;
     public static final int ARM_XBOX_PORT = 2;
@@ -44,7 +44,7 @@ public class Constants {
     public static DifferentialDrive ROBOT_DRIVE = new DifferentialDrive(LEFT_DRIVE_GROUP, RIGHT_DRIVE_GROUP);
 
     public static final int PH_CAN_ID = 1;
-    public static final int PH_FORWARD_CHANNEL = 7;
+    public static final int PH_FORWARD_CHANNEL = 6;
     public static final int PH_REVERSE_CHANNEL = 7;
 
     public static DoubleSolenoid MAIN_SOLENOID = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PH_FORWARD_CHANNEL, Constants.PH_REVERSE_CHANNEL);
@@ -60,8 +60,13 @@ public class Constants {
     .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min",-1 , "max",1));
 
-    public static SimpleWidget RIGHT_TRIGGER_AXIS_WIDGET = Shuffleboard.getTab("uSELESScASE General")
+    public static SimpleWidget CHASSIS_RIGHT_TRIGGER_AXIS_WIDGET = Shuffleboard.getTab("uSELESScASE General")
     .add("Right Trigger Axis", 0.0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min",0 , "max",1));
+
+    public static SimpleWidget ARM_RIGHT_TRIGGER_AXIS_WIDGET = Shuffleboard.getTab("uSELESScASE General")
+    .add(".Right Trigger Axis", 0.0)
     .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min",0 , "max",1));
 
@@ -119,4 +124,12 @@ public class Constants {
           outputStream.putFrame(mat);
         }
     });
+
+    public static SimpleWidget DRIVE_STATION = Shuffleboard.getTab("uSELESScASE General")
+    .add("Driver Station", 0)
+    .withWidget(BuiltInWidgets.kDifferentialDrive);
+
+    public static SimpleWidget BATTERY_STATUS = Shuffleboard.getTab("uSELESScASE General")
+    .add("Battery Status", 0)
+    .withWidget(BuiltInWidgets.kVoltageView);
 }
