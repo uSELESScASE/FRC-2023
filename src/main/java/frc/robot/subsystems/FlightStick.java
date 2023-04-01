@@ -14,33 +14,27 @@ public class FlightStick {
     private Joystick flightStick;
 
     FlightStick(){
-
         flightStick = new Joystick(Constants.JOYSTICK_PORT);
     }
 
-    public double secondStickYAxis(){
-        return flightStick.getY();
-    }
-
     public double secondStickThrottleAxis(){
-        return flightStick.getRawAxis(6);
+        return flightStick.getRawAxis(2);
     }
 
     public boolean getAButtonPressed(){
-        return flightStick.getRawButton(0);
+        return flightStick.getRawButtonPressed(1);
     }
 
     public boolean getXButtonPressed(){
-        return flightStick.getRawButton(0);
+        return flightStick.getRawButtonPressed(2);
     }
 
     public boolean getYButtonPressed(){
-        return flightStick.getRawButton(0);
+        return flightStick.getRawButtonPressed(3);
     }
 
     public double getRightThumbY(){
         return flightStick.getRawAxis(5);
-    
     }
 
     

@@ -3,17 +3,17 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class ChassisGamepad {
-    private static int nport;
+    private static int m_port;
     private XboxController m_controller;
     private static ChassisGamepad mInstance = new ChassisGamepad();
 
     public static ChassisGamepad getInstance(int port){
-        nport = port;
+        m_port = port;
         return mInstance;
     }
 
     public ChassisGamepad(){
-        m_controller = new XboxController(nport);
+        m_controller = new XboxController(m_port);
     }
 
     public double getForwardDrive() {

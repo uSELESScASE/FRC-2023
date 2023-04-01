@@ -10,7 +10,7 @@ public class PAShuffle {
 
     public static void onStart() {
       chassisGamepad = ChassisGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
-      armGamepad = ArmGamepad.getInstance(Constants.ARM_XBOX_PORT);
+      armGamepad = FlightStick.getInstance();
 
       Shuffleboard.getTab("uSELESScASE General");
       Shuffleboard.selectTab("uSELESScASE General");
@@ -61,12 +61,12 @@ public class PAShuffle {
       }
     }
     
-    public void inTeleopPeriod() {
+    public static void inTeleopPeriod() {
         double spd = chassisGamepad.getForwardDrive();
         double rot = chassisGamepad.getTurnDrive();
         double drvthr = chassisGamepad.getRightTriggerAxis();
         
-        double deg = FlightStick.getRightThumbY();
+        double deg = armGamepad.getRightThumbY();
 
         Constants.LEFT_X_AXIS_WIDGET.getEntry().setDouble(-spd);
         Constants.LEFT_Y_AXIS_WIDGET.getEntry().setDouble(-rot);
