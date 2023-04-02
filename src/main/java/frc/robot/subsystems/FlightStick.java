@@ -36,6 +36,4 @@ public class FlightStick {
     public double getRightThumbY(){
         return flightStick.getRawAxis(5);
     }
-
-    
 }

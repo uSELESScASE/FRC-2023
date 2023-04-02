@@ -4,35 +4,40 @@ import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import frc.robot.Constants;
 
+/* uSELESScASE Gyro Wannabe Accelerometer Code
+ * 
+ * We used BuiltInAccelerometer since gyros were really expensive.
+ * This code has been licensed under MIT (https://choosealicense.com/licenses/mit/).
+ * Feel free to use it, just let us know if you wanna use it.
+*/
 public class Gyroscope {
-
-    private static Gyroscope mInstance = new Gyroscope();
-    private double acc_Y;
-    private static BuiltInAccelerometer accelerometer;
-    private Drivetrain drive;
-    LinearFilter xAccFilter = LinearFilter.movingAverage(16);
+    private static Gyroscope paINSTANCE = new Gyroscope();
+    private double aCCELEROMETER_gETy;
+    private static BuiltInAccelerometer aCEELEROMETER;
+    private Drivetrain dRIVE;
+    LinearFilter xaCCfILTER = LinearFilter.movingAverage(16);
 
     public static Gyroscope getInstance(){
-        return mInstance;
+        return paINSTANCE;
     }
 
     Gyroscope(){
-        accelerometer = new BuiltInAccelerometer();
-        drive = new Drivetrain();
+        aCEELEROMETER = new BuiltInAccelerometer();
+        dRIVE = new Drivetrain();
     }
 
 
     public void accStabilize(){
-        acc_Y = accelerometer.getY();
-        double filteredxAccel = xAccFilter.calculate(acc_Y);
+        aCCELEROMETER_gETy = aCEELEROMETER.getY();
+        double filteredxAccel = xaCCfILTER.calculate(aCCELEROMETER_gETy);
 
-        drive.simpleTankDrv(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
+        dRIVE.simpleTankDrv(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
     }
 
-    public void accStabilizeValue(){
-        acc_Y = accelerometer.getY();
-        double filteredxAccel = xAccFilter.calculate(acc_Y);
+    public double accStabilizeValue(){
+        aCCELEROMETER_gETy = aCEELEROMETER.getY();
+        double filteredxAccel = xaCCfILTER.calculate(aCCELEROMETER_gETy);
 
-        System.out.println(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
+        return (filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
     }
 }
