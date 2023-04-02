@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
 public class Constants {
     public static double ARM_THROTTLE_MULTIPLY = 0;
-    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.375;
+    public static double ACCELEROMETER_THROTTLE_MULTIPLY = 1.38;
 
     public static final int CHASSIS_XBOX_PORT = 0;
     public static final int ARM_XBOX_PORT = 2;

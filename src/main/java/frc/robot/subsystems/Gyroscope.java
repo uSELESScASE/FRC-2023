@@ -10,7 +10,7 @@ public class Gyroscope {
     private double acc_Y;
     private static BuiltInAccelerometer accelerometer;
     private Drivetrain drive;
-    LinearFilter xAccFilter = LinearFilter.movingAverage(14);
+    LinearFilter xAccFilter = LinearFilter.movingAverage(16);
 
     public static Gyroscope getInstance(){
         return mInstance;
