@@ -24,9 +24,9 @@ public class Gyroscope {
 
     public void accStabilize(){
         acc_Y = accelerometer.getY();
-        double filteredxAccel = xAccFilter.calculate(acc_Y);
+        double filteredxAccel = xAccFilter.calculate(acc_Y) * Constants.ACCELEROMETER_THROTTLE_MULTIPLY;
 
-        drive.simpleTankDrv(filteredxAccel * Constants.ACCELEROMETER_THROTTLE_MULTIPLY);
+        drive.simpleTankDrv(filteredxAccel);
     }
 
     public double accStabilizeValue(){

@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    while (acceleroMeter.accStabilizeValue() < 0.3){
+    while (acceleroMeter.accStabilizeValue() < 0.3 || m_generalTimer.get() < 1.5){
       Drivetrain.simpleTankDrv(0.8);
     } 
     m_autoTimer.start();
