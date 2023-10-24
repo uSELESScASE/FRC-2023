@@ -21,11 +21,38 @@ public class Arm {
 
 
     public void move(double deg, double thr){
-        deg *= thr;
+        double limiter;
+        double limiterValue = 0.8;
+        
+        if (thr >= limiterValue) {
+            limiter = limiterValue;
+        } else if (thr <= -limiterValue) {
+            limiter = -limiterValue;
+        } else {
+            limiter = thr;
+        }
+
+        deg *= limiter;
 
         double filteredDeg = filter.calculate(deg);
+        VictorSP.set(filteredDeg);
+    }
 
-        VictorSP.set(-filteredDeg);
+    public void moveValue(double deg, double thr){
+        double limiter;
+        double limiterValue = 0.8;
 
+        if (thr >= limiterValue) {
+            limiter = limiterValue;
+        } else if (thr <= -limiterValue) {
+            limiter = -limiterValue;
+        } else {
+            limiter = thr;
+        }
+        
+        deg *= limiter;
+
+        double filteredDeg = filter.calculate(deg);
+        System.out.println(filteredDeg);
     }
 }

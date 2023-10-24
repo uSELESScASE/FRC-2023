@@ -7,12 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.ChassisGamepad;
+import frc.robot.subsystems.Gamepad;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.FlightStick;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Gyroscope;
-import frc.robot.subsystems.PAShuffle;
+import frc.robot.subsystems.UCShuffleboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,14 +20,12 @@ import frc.robot.subsystems.PAShuffle;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private ChassisGamepad chassisGamepad;
-  private FlightStick armGamepad;
+  private Gamepad gamepad;
   private Drivetrain driveTrain;
   private Gripper mainGripper;
   private Arm mainArm;
   private Gyroscope acceleroMeter;
   double value;
-  // private FlightStick flightStick;
   private final Timer m_generalTimer = new Timer();
   private final Timer m_autoTimer = new Timer();
   
@@ -39,19 +36,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     driveTrain = Drivetrain.getInstance();
-    chassisGamepad = ChassisGamepad.getInstance(Constants.CHASSIS_XBOX_PORT);
-    armGamepad = FlightStick.getInstance();
+    gamepad = Gamepad.getInstance(Constants.GAMEPAD_PORT);
     mainGripper = Gripper.getInstance();
     mainArm = Arm.getInstance();
     acceleroMeter = Gyroscope.getInstance();
-    // flightStick = FlightStick.getInstance();
 
-    PAShuffle.onStart();
+    UCShuffleboard.robotInit();
   }
 
   @Override
   public void robotPeriodic() {
-    PAShuffle.getRobotPeriodic();
+    UCShuffleboard.robotPeriodic();
   }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -90,17 +85,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    double spd = chassisGamepad.getForwardDrive();
-    double rot = chassisGamepad.getTurnDrive();
-    double drvthr = chassisGamepad.getRightTriggerAxis();
+    double spd = gamepad.getForwardDrive();
+    double rot = gamepad.getTurnDrive();
+    double drvthr = gamepad.getRightTriggerAxis();
+    double deg = gamepad.getArmDrive();
+    double thr = gamepad.getLeftTriggerAxis();
 
-    double deg = armGamepad.getRightThumbY();
-    double thr = armGamepad.secondStickThrottleAxis();
-
-    PAShuffle.inTeleopPeriod();
-
-    driveTrain.arcadeDrv(-spd, -rot, drvthr);
-    mainGripper.engageGripper(armGamepad);
+    driveTrain.arcadeDrv(-rot, spd, drvthr);
+    mainGripper.engageGripper(gamepad);
     mainArm.move(deg,thr);
   }
 
